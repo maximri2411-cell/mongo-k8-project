@@ -25,12 +25,16 @@ const saveColor = async (key, value) => {
 }
 
 //--------------------//
-const getColor = async (key) => {
+const getColor = async (key, noFallback = false) => {
 
   const color = await Color.findOne({ key })
 
   if (color) {
     return color.value
+  }
+
+  if (noFallback) {
+    return null
   }
 
   return process.env.DEFAULT_COLOR || "blue"
@@ -45,4 +49,12 @@ module.exports = {
   saveColor,
   getColor,
   getColors,
+  deleteColor
 };
+
+//--------------------//
+const deleteColor = async (key) => {
+
+  return Color.deleteOne({ key })
+
+}

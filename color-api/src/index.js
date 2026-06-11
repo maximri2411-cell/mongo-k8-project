@@ -1,9 +1,12 @@
-const mongoose = require("mongoose")
-
+const mongoose = require("mongoose");
 const express = require("express");
+const bodyParser = require("body-parser");
 
 const port = 80;
 const app = express();
+
+// Load bodyParser middleware BEFORE mounting routers
+app.use(bodyParser.json());
 
 // Load and mount routers
 const healthRouter = require("./routes/health");
