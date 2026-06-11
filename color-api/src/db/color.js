@@ -45,16 +45,14 @@ const getColors = async () => {
   return Color.find();
 };
 
+//--------------------//
+const deleteColor = async (key) => {
+  return Color.deleteOne({ key });
+};
+
 module.exports = {
   saveColor,
   getColor,
   getColors,
-  deleteColor
+  deleteColor,
 };
-
-//--------------------//
-const deleteColor = async (key) => {
-
-  return Color.deleteOne({ key })
-
-}
