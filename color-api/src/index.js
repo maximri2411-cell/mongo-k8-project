@@ -1,3 +1,5 @@
+const mongoose = require("mongoose")
+
 const express = require("express");
 
 const port = 80;
@@ -13,6 +15,17 @@ app.use("/api", apiRouter);
 const rootRouter = require("./routes/root");
 app.use("/", rootRouter);
 
-app.listen(port, () => {
-  console.log(`Color API listening on port: ${port}`);
-});
+// Mongo connect
+mongoose
+  .connect(process.env.DB_URL)
+  .then(() => {
+    console.log("Connected to MongoDB");
+
+    app.listen(port, () => {
+      console.log(`Server listening on port ${port}`);
+    });
+  })
+  .catch((error) => {
+    console.error("Could not connect to MongoDB");
+    console.error(error);
+  });

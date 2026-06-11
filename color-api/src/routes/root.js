@@ -1,10 +1,12 @@
 const express = require("express");
-const { getColor, getHostname } = require("../utils");
+const { getHostname } = require("../utils");
+const { getColor } = require("../db/color");
 
 const rootRouter = express.Router();
 
-rootRouter.get("/", (req, res) => {
-  const color = getColor();
+rootRouter.get("/", async (req, res) => {
+  const { colorKey } = req.query; // e.g. localhost/?colorKey=primary
+  const color = await getColor(colorKey)
   const hostname = getHostname();
 
   res.json({
